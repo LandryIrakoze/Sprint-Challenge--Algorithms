@@ -92,12 +92,26 @@ class SortingRobot:
         """
         return self._light == "ON"
 
+    def one_pass(self):
+        while self.can_move_right:
+            if self.compare_item() == 1:
+                self.swap_item()
+            self.move_right()
+    
+    def check_sorted(self):
+        while self.can_move_right():
+            if self.compare_item() == 1:
+                return False
+            self.move_right()
+
     def sort(self):
         """
         Sort the robot's list.
         """
         # Fill this out
-        pass
+        while self.check_sorted() == False:
+            self.one_pass()
+
 
 
 if __name__ == "__main__":
@@ -110,3 +124,28 @@ if __name__ == "__main__":
 
     robot.sort()
     print(robot._list)
+
+
+'''
+You have been given a robot with very basic capabilities:
+
+  * It can move left or right.
+  * It can pick up an item
+    * If it tries to pick up an item while already holding one, it will swap the items instead.
+  * It can compare the item it's holding to the item in front of it.
+  * It can switch a light on its head on or off.
+
+Your task is to program this robot to sort lists using ONLY these abilities.
+'''
+
+'''
+  * You may use any pre-defined robot methods.
+  * You may NOT modify any pre-defined robot methods.
+  * You may use logical operators. (`if`, `and`, `or`, `not`, etc.)
+  * You may use comparison operators. (`>`, `>=`, `<`, `<=`, `==`, `is`, etc.)
+  * You may use iterators. (`while`, `for`, `break`, `continue`)
+  * You may NOT store any variables. (`=`)
+  * You may NOT access any instance variables directly. (`self._anything`)
+  * You may NOT use any Python libraries or class methods. (`sorted()`, etc.)
+  * You may define robot helper methods, as long as they follow all the rules.
+'''
